@@ -26,6 +26,7 @@ jobs:
       uses: actions/checkout@v2
   
   configure:
+    needs: checkout
     runs-on: ubuntu-latest
     steps:  
     - name: Configure AWS credentials
@@ -40,12 +41,14 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
   Build-image:
+    needs: configure
     runs-on: ubuntu-latest
     steps:
     - name: Build and tag image 
       run: docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
 
   push-image:
+      needs: Build-image
       runs-on: ubuntu-latest
       steps:
       - name: push image to Amazon ECR
