@@ -12,9 +12,9 @@ on:
   workflow_dispatch:
 
 env:
-  ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-  ECR_REPOSITORY: docker_nodejs_demo
-  IMAGE_TAG: nodejs_action_demo
+  ECR_REGISTRY: '${{ steps.login-ecr.outputs.registry }}'
+  ECR_REPOSITORY: 'docker_nodejs_demo'
+  IMAGE_TAG: 'nodejs_action_demo'
   
 #Jobs to build, configure and push 
 jobs:
