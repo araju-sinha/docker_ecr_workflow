@@ -1,15 +1,19 @@
-# This is a basic workflow to help you get started with Actions
+# workflow to build and push docker image to AWS ECR (Elastic Container Registory)
 
 name: Deploy to ECR
 
-# Controls when the workflow will run
+# workflow execution
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
+  # Triggers the workflow on push, when any cahnges are done in repo on master branch
   push:
     branches: [ master ]
-
-jobs:
   
+  # Allow Manually trigger the workflow from GitHuB Action tab
+  workflow_dispatch:
+  
+#Jobs to build, configure and push 
+jobs:
+  # build job 
   build:
     
     name: Build Image
