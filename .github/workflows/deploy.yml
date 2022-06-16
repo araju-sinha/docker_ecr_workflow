@@ -10,11 +10,6 @@ on:
   
   # Allow Manually trigger the workflow from GitHuB Action tab
   workflow_dispatch:
-
-env:
-  ECR_REGISTRY: '${{ steps.login-ecr.outputs.registry }}'
-  ECR_REPOSITORY: 'docker_nodejs_demo'
-  IMAGE_TAG: 'nodejs_action_demo'
   
 #Jobs to build, configure and push 
 jobs:
@@ -40,16 +35,18 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-  Build-image:
+
+  Build-push-image:
     needs: configure
     runs-on: ubuntu-latest
     steps:
-    - name: Build and tag image 
-      run: docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+    - name: Build, tag and push image to ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: docker_nodejs_demo
+        IMAGE_TAG: nodejs_action_demo
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-  push-image:
-      needs: Build-image
-      runs-on: ubuntu-latest
-      steps:
-      - name: push image to Amazon ECR
-        run: docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          
