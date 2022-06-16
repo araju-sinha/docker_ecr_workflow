@@ -10,21 +10,28 @@ on:
   
   # Allow Manually trigger the workflow from GitHuB Action tab
   workflow_dispatch:
+
+env:
+  ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+  ECR_REPOSITORY: docker_nodejs_demo
+  IMAGE_TAG: nodejs_action_demo
   
 #Jobs to build, configure and push 
 jobs:
   # build job 
-  build:
-    
-    name: Build Image
-    runs-on: ubuntu-latest
-
+#  build:
+#    name: Build Image
+#    runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
+  checkout:
+    runs-on: ubuntu-latest
     steps:
-
     - name: Check out code
       uses: actions/checkout@v2
-    
+  
+  configure:
+    runs-on: ubuntu-latest
+    steps:  
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -36,11 +43,15 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, tag, and push image to Amazon ECR
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: docker_nodejs_demo
-        IMAGE_TAG: nodejs_demo_image
-      run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+  Build-image:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build and tag image 
+      run: docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+
+        
+  push-image:
+      runs-on: ubuntu-latest
+      steps:
+      - name: push image to Amazon ECR
+        run: docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
