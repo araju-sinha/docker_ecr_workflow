@@ -18,11 +18,7 @@ env:
   
 #Jobs to build, configure and push 
 jobs:
-  # build job 
-#  build:
-#    name: Build Image
-#    runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
+
   checkout:
     runs-on: ubuntu-latest
     steps:
@@ -49,7 +45,6 @@ jobs:
     - name: Build and tag image 
       run: docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
 
-        
   push-image:
       runs-on: ubuntu-latest
       steps:
