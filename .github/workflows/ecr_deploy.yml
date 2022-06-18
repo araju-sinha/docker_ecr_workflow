@@ -14,16 +14,12 @@ on:
 #Jobs to build, configure and push 
 jobs:
 
-  checkout:
+  Deployment:
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
       uses: actions/checkout@v2
-  
-#  configure:
- #   needs: checkout
-  #  runs-on: ubuntu-latest
-   # steps:  
+   
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
