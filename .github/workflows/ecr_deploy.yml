@@ -15,6 +15,7 @@ on:
 jobs:
 
   Deployment:
+    name: Build Image
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
