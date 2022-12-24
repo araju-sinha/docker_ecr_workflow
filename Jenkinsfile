@@ -14,8 +14,8 @@ pipeline {
     }
     stage('Building image') {
       steps{
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        steps{
+          powershell 'docker build -t araju024/node-jen:02'
         }
       }
     }
