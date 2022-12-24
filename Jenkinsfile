@@ -3,7 +3,7 @@ pipeline {
   environment {
     registryCredential = 'doc-cred'
   }
-  agent any
+  agent none
   stages {
     stage('Checkout Code') {
       steps {
@@ -12,12 +12,20 @@ pipeline {
     }
     stage('Building image') {
       steps{
-        steps{
-          bat 'docker build -t araju024/node-jen:02'
+        script {
+          dockerImage = docker.build("my-node-img:03")
         }
       }
     }
-
+    stage('Deploy Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
 
   }
 }
