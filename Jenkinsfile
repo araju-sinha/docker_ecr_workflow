@@ -1,9 +1,7 @@
 
 pipeline {
   environment {
-    registry = "araju024/new_imge"
     registryCredential = 'doc-cred'
-    dockerImage = ''
   }
   agent any
   stages {
@@ -15,7 +13,7 @@ pipeline {
     stage('Building image') {
       steps{
         steps{
-          powershell 'docker build -t araju024/node-jen:02'
+          bat 'docker build -t araju024/node-jen:02'
         }
       }
     }
