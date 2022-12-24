@@ -1,5 +1,10 @@
 
 pipeline {
+  environment {
+    registry = "araju024/new_imge"
+    registryCredential = 'doc-cred'
+    dockerImage = ''
+  }
   agent any
   stages {
     stage('Checkout Code') {
@@ -7,9 +12,11 @@ pipeline {
         git(url: 'https://github.com/araju-sinha/docker_ecr_workflow.git/', branch: 'master')
       }
     }
-    stage('Build') {
-      steps {
-        'docker build -t araju024/node_jenkins:09-lat .'
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        }
       }
     }
 
