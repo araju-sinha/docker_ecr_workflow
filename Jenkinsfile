@@ -3,7 +3,7 @@ pipeline {
   environment {
     registryCredential = 'doc-cred'
   }
-  agent none
+  agent { dockerfile true }
   stages {
     stage('Checkout Code') {
       steps {
