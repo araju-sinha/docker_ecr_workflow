@@ -13,7 +13,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          bat dockerImage = docker.build("my-node-img:03")
+          dockerImage = docker.build("my-node-img:03")
         }
       }
     }
