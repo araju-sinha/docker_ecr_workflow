@@ -9,7 +9,7 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'docker build -t araju024/node_jenkins:09-lat
+        sh 'docker build -t araju024/node_jenkins:09-lat .'
       }
     }
 
