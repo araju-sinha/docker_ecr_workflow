@@ -13,15 +13,15 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          sh dockerImage = docker.build("my-node-img:03")
+          bat dockerImage = docker.build("my-node-img:03")
         }
       }
     }
     stage('Deploy Image') {
       steps{
         script {
-          sh docker.withRegistry( '', registryCredential ) {
-           sh dockerImage.push()
+           docker.withRegistry( '', registryCredential ) {
+             dockerImage.push()
           }
         }
       }
