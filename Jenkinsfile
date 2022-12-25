@@ -7,7 +7,8 @@ pipeline {
   stages {
     stage('Checkout Code') {
       steps {
-        git(url: 'https://github.com/araju-sinha/docker_ecr_workflow.git/', branch: 'master')
+        git credentialsId: 'git-cred', url: 'https://github.com/araju-sinha/docker_ecr_workflow.git/'
+//    #       git(url: 'https://github.com/araju-sinha/docker_ecr_workflow.git/', branch: 'master')
       }
     }
     stage('Building image') {
