@@ -3,7 +3,7 @@ pipeline {
   environment {
     registryCredential = 'doc-cred'
   }
-  agent { dockerfile true }
+  agent any
   stages {
     stage('Checkout Code') {
       steps {
@@ -15,7 +15,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          docker build -t my_node_image .
+          sh docker build -t my_node_image .
 //           dockerImage = docker.build("my-node-img:03")
         }
       }
