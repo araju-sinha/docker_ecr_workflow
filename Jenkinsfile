@@ -15,19 +15,20 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          dockerImage = docker.build("my-node-img:03")
+          docker build -t araju024/my_node_image .
+//           dockerImage = docker.build("my-node-img:03")
         }
       }
     }
-    stage('Deploy Image') {
-      steps{
-        script {
-           docker.withRegistry( '', registryCredential ) {
-             dockerImage.push()
-          }
-        }
-      }
-    }
+//     stage('Deploy Image') {
+//       steps{
+//         script {
+//            docker.withRegistry( '', registryCredential ) {
+//              dockerImage.push()
+//           }
+//         }
+//       }
+//     }
 
   }
 }
