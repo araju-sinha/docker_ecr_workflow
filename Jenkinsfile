@@ -3,7 +3,7 @@ pipeline {
   environment {
     registryCredential = 'doc-cred'
   }
-  agent any
+  agent none
   stages {
     stage('Checkout Code') {
       steps {
