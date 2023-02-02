@@ -49,7 +49,7 @@ jobs:
         IMAGE_TAG: gcp_demo
       run: |
         docker build -t $IMAGE:$IMAGE_TAG .
-        docker push $IMAGE:IMAGE_TAG
+        docker push $IMAGE:$IMAGE_TAG
         
 
 
