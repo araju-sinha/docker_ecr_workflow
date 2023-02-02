@@ -35,11 +35,11 @@ jobs:
       with:
         project_id: 'flash-span-372817'
         
-    - name: "Setup gcloud CLI"
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-      with:
-        version: '270.0.0'
-        service_account_key: ${{ secrets.gcp_credentials }}
+#     - name: "Setup gcloud CLI"
+#       uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+#       with:
+#         version: '270.0.0'
+#         service_account_key: ${{ secrets.gcp_credentials }}
     - run: |
         gcloud auth configure-docker
 
