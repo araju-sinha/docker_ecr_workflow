@@ -1,1 +1,51 @@
+# workflow to build and push docker image to AWS ECR (Elastic Container Registory)
 
+name: Deploy to ECR
+
+# workflow execution
+on:
+  # Triggers the workflow on push, when any cahnges are done in repo on master branch
+  push:
+    branches: [ master ]
+  
+  # Allow Manually trigger the workflow from GitHuB Action tab
+  workflow_dispatch:
+  
+#Jobs to build, configure and push 
+jobs:
+
+  Deployment:
+    name: Build Image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+   
+    - id: 'GCP Auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: ${{ secrets.gcp_credentials }}
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+
+    - name: 'GCP SETUP'
+      uses: 'google-github-actions/setup-gcloud@v0.6.0'
+      with:
+        project_id: 'flash-span-372817'
+
+#     - name: Build, tag and push image to ECR
+#       env:
+#         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#         ECR_REPOSITORY: docker_nodejs_demo
+#         IMAGE_TAG: nodejs_action_demo
+#       run: |
+#         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+#         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+
+
+
+
+          
