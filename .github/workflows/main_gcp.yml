@@ -1,6 +1,6 @@
 # workflow to build and push docker image to AWS ECR (Elastic Container Registory)
 
-name: Deploy to ECR
+name: Deploy to Google Registry
 
 # workflow execution
 on:
