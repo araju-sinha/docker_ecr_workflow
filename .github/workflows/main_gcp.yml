@@ -45,12 +45,11 @@ jobs:
 
     - name: Build, tag and push image to ECR
       env:
-        REGISTRY_HOSTNAME: gcr.io
         IMAGE: us-central1-docker.pkg.dev/flash-span-372817/demo
         IMAGE_TAG: gcp_demo
       run: |
-        docker build -t $REGISTRY_HOSTNAME/$IMAGE:$IMAGE_TAG .
-        docker push $REGISTRY_HOSTNAME/$IMAGE:IMAGE_TAG
+        docker build -t $IMAGE:$IMAGE_TAG .
+        docker push $IMAGE:IMAGE_TAG
         
 
 
