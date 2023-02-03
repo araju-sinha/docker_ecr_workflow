@@ -66,7 +66,7 @@ jobs:
         
     - name: push image
       run: |-
-        docker push us-central1-docker.pkg.dev/flash-span-372817/demo
+        docker push us-central1-docker.pkg.dev/flash-span-372817/demo$IMAGE_TAG
  
 
 
