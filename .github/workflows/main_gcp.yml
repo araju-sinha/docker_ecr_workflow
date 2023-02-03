@@ -54,9 +54,16 @@ jobs:
         IMAGE_TAG: gcp_demo
       run: |
         docker build -t $IMAGE:$IMAGE_TAG .
-        docker push gcr.io/$IMAGE:$IMAGE_TAG
         
-
+    #    docker push gcr.io/$IMAGE:$IMAGE_TAG
+    
+    - name: Push image
+      env:
+        GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
+      run: |-
+        docker tag $IMAGE:$IMAGE_TAG us-central1-docker.pkg.dev/flash-span-372817/demo
+        docker push us-central1-docker.pkg.dev/flash-span-372817/demo
+ 
 
 
 
