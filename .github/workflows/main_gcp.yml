@@ -1,5 +1,3 @@
-# workflow to build and push docker image to AWS ECR (Elastic Container Registory)
-
 name: Deploy to Google Registry
 
 # workflow execution
@@ -17,9 +15,6 @@ jobs:
   Deployment:
     name: Build Image
     runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: demo
-      PROJECT_ID: flash-span-372817
     steps:
     - name: Check out code
       uses: actions/checkout@v2
@@ -36,7 +31,7 @@ jobs:
     - name: 'GCP SETUP'
       uses: 'google-github-actions/setup-gcloud@v0.6.0'
       with:
-        project_id: ${{ env.PROJECT_ID }}
+        project_id: 'flash-span-372817'
         
 #     - name: "Setup gcloud CLI"
 #       uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
@@ -50,43 +45,10 @@ jobs:
       run: |-
         gcloud auth configure-docker --quiet
         gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
-
-    - name: Build, tag and push image to gar
-#       env:
-#         IMAGE: us-central1-docker.pkg.dev/flash-span-372817/demo
-#         IMAGE_TAG: gcp_demo
-      run: |
-        docker build -t $IMAGE_NAME:latest .
-        
-        
-        
-    - name: Push Docker Image to Artifact Registry
+    - name: Build, tag and push image to ECR
       env:
-        GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
-      run: |-
-        docker tag $IMAGE_NAME:latest us-west2-docker.pkg.dev/$PROJECT_ID/images/$IMAGE_NAME:latest
-        docker tag $IMAGE_NAME:latest us-west2-docker.pkg.dev/$PROJECT_ID/images/$IMAGE_NAME:$GIT_TAG
-        docker push us-central1-docker.pkg.dev/$PROJECT_ID/images/$IMAGE_NAME:latest
-        docker push us-central1-docker.pkg.dev/$PROJECT_ID/images/$IMAGE_NAME:$GIT_TAG
-      #  docker build -t $IMAGE:$IMAGE_TAG .
-     #   docker push us.gcr.io/flash-span-372817/us-central1-docker.pkg.dev/flash-span-372817/demo:$IMAGE_TAG
-        
-    #    docker push gcr.io/$IMAGE:$IMAGE_TAG
-    
-#     - name: tag image
-#       env:
-#         GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
-#       run: |-
-#         docker tag $IMAGE:$IMAGE_TAG us-central1-docker.pkg.dev/flash-span-372817/demo:$GIT_TAG
-        
-       # HOST-NAME/PROJECT-ID/REPOSITORY/IMAGE
-#     - name: push image
-#       run: |-
-#         docker push us-central1-docker.pkg.dev/flash-span-372817/demo:$IMAGE_TAG
- 
-
-
-
-
-
-          
+        IMAGE: us-central1-docker.pkg.dev/flash-span-372817/demo
+        IMAGE_TAG: gcp_demo
+      run: |
+        docker build -t $IMAGE:$IMAGE_TAG .
+        docker push flash-span-372817/us-central1-docker.pkg.dev/flash-span-372817/demo:$IMAGE_TAG
