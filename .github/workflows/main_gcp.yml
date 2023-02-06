@@ -47,11 +47,11 @@ jobs:
         gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
     - name: Build, tag and push image to ECR
       env:
-        IMAGE: us-central1-docker.pkg.dev/flash-span-372817/demo/test
+        IMAGE: demo_new/test_02
         IMAGE_TAG: v01
       run: |
         docker build -t $IMAGE:$IMAGE_TAG .
-        docker push us-central1-docker.pkg.dev/flash-span-372817/demo/test:$IMAGE_TAG
+        docker push us-central1-docker.pkg.dev/flash-span-372817/$IMAGE:$IMAGE_TAG
         
         
         
