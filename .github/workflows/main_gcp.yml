@@ -48,7 +48,7 @@ jobs:
     - name: Create repository using gcloud
       run: |-
        gcloud version
-       gcloud services enable artifactregistry.googleapis.com --yes
+       gcloud services enable artifactregistry.googleapis.com --async
        gcloud artifacts repositories create demo_new --repository-format=docker --location=us-central1 --kms-key=${{ secrets.gcp_credentials }} --async
    
     - name: Build, tag and push image to ECR
