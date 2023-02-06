@@ -44,6 +44,10 @@ jobs:
       run: |-
         gcloud auth configure-docker --quiet
         gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+        
+    - name: Create repository using gcloud
+      run: gcloud artifacts repositories create demo_new --repository-format=docker --location=us-central1 --kms-key=${{ secrets.gcp_credentials }} --async
+   
     - name: Build, tag and push image to ECR
       env:
         IMAGE: us-central1-docker.pkg.dev/flash-span-372817/demo_new/test_02
