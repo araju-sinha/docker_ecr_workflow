@@ -50,7 +50,7 @@ jobs:
     - name: Create repository using gcloud
       run: |-
        gcloud version
-       gcloud artifacts repositories create demonew --repository-format=docker --location=us-central1 --kms-key=${{ secrets.gcp_credentials }} --async
+       gcloud artifacts repositories create demonew --repository-format=docker --location=us-central1 --async
    
     - name: Build, tag and push image to ECR
       env:
