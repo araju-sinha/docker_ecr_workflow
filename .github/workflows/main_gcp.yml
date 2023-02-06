@@ -39,6 +39,8 @@ jobs:
 #         service_account_key: ${{ secrets.gcp_credentials }}
 #     - run: |
 #         gcloud auth configure-docker
+#       gcloud config set project $project_id --installation
+#       gcloud services enable artifactregistry.googleapis.com --project=$project_id --async
         
     - name: Configure Docker Client
       run: |-
@@ -48,9 +50,7 @@ jobs:
     - name: Create repository using gcloud
       run: |-
        gcloud version
-       gcloud config set project $project_id --installation
-       gcloud services enable artifactregistry.googleapis.com --project=$project_id --async
-       gcloud artifacts repositories create demo_new --repository-format=docker --location=us-central1 --kms-key=${{ secrets.gcp_credentials }} --async
+       gcloud artifacts repositories create demonew --repository-format=docker --location=us-central1 --kms-key=${{ secrets.gcp_credentials }} --async
    
     - name: Build, tag and push image to ECR
       env:
