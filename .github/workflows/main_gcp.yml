@@ -1,5 +1,4 @@
 name: Deploy to Google Registry
-
 # workflow execution
 on:
   # Triggers the workflow on push, when any cahnges are done in repo on master branch
