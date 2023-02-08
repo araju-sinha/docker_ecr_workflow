@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 #requirements to execute the app
 COPY package.json .
-RUN npm install 
+#RUN npm install 
 COPY . .
 
 #port on which app will run
