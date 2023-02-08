@@ -3,7 +3,11 @@ name: Deploy to Google Registry
 on:
   # Triggers the workflow on push, when any cahnges are done in repo on master branch
   push:
-    branches: [ master ]
+    branches:
+       - master
+       - stag
+       - docker
+       - doc_wf
   
   # Allow Manually trigger the workflow from GitHuB Action tab
   workflow_dispatch:
