@@ -49,6 +49,7 @@ jobs:
       if: ${{ (github.event_name == 'push') && (github.ref != 'refs/heads/workflow_condition')}}
 #      if: ${{ (github.ref == 'refs/heads/master') || (github.ref == 'refs/heads/stag') || (github.ref == 'refs/heads/docker') }}
       run: |-
+        echo "Hello Docker Client"
         gcloud auth configure-docker --quiet
         gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
         
