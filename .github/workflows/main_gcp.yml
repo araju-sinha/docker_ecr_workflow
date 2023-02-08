@@ -37,10 +37,8 @@ jobs:
 #       with:
 #         version: '270.0.0'
 #         service_account_key: ${{ secrets.gcp_credentials }}
-#     - run: |
-#         gcloud auth configure-docker
-#       gcloud config set project $project_id --installation
-#       gcloud services enable artifactregistry.googleapis.com --project=$project_id --async
+    - name: Get some outputs
+      run: echo ${{ github.ref.output }}
         
     - name: Configure Docker Client
       if: ${{ (github.ref == 'refs/heads/main') || (github.ref == 'refs/heads/stag') }}
@@ -51,7 +49,7 @@ jobs:
     - name: Create repository using gcloud
       run: |-
        gcloud version
-       gcloud artifacts repositories create demonew --repository-format=docker --location=us-central1 --async
+#       gcloud artifacts repositories create demonew --repository-format=docker --location=us-central1 --async
    
     - name: Build, tag and push image to GAR
       env:
