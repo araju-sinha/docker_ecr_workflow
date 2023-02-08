@@ -38,7 +38,7 @@ jobs:
 #         version: '270.0.0'
 #         service_account_key: ${{ secrets.gcp_credentials }}
     - name: Get some outputs
-      run: echo ${{ github.ref.output }}
+      run: echo Hello "${{ github.ref }}"
         
     - name: Configure Docker Client
       if: ${{ (github.ref == 'refs/heads/main') || (github.ref == 'refs/heads/stag') }}
