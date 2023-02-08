@@ -1,4 +1,3 @@
-
 pipeline {
   environment {
     registryCredential = 'doc-cred'
