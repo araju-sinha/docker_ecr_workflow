@@ -51,13 +51,13 @@ jobs:
        gcloud version
 #       gcloud artifacts repositories create demonew --repository-format=docker --location=us-central1 --async
    
-    - name: Build, tag and push image to GAR
-      env:
-        IMAGE: us-central1-docker.pkg.dev/flash-span-372817/demonew/test_02
-        IMAGE_TAG: v01
-      run: |
-        docker build -t $IMAGE:$IMAGE_TAG .
-        docker push us-central1-docker.pkg.dev/flash-span-372817/demonew/test_02:$IMAGE_TAG
+#     - name: Build, tag and push image to GAR
+#       env:
+#         IMAGE: us-central1-docker.pkg.dev/flash-span-372817/demonew/test_02
+#         IMAGE_TAG: v01
+#       run: |
+#         docker build -t $IMAGE:$IMAGE_TAG .
+#         docker push us-central1-docker.pkg.dev/flash-span-372817/demonew/test_02:$IMAGE_TAG
         
         
         
