@@ -43,6 +43,7 @@ jobs:
 
     - name: Check values and outputs
       run: | 
+        echo "check values"
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $IMAGE_OUTPUT
         echo "image to use eks" ${{ steps.build-image.outputs.image }}
 
