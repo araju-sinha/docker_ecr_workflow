@@ -40,12 +40,15 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-    - name: Check values and outputs
-      run: | 
         echo "check values"
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $IMAGE_OUTPUT
         echo "image to use eks" ${{ steps.build-image.outputs.image }}
+
+    # - name: Check values and outputs
+    #   run: | 
+    #     echo "check values"
+    #     echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $IMAGE_OUTPUT
+    #     echo "image to use eks" ${{ steps.build-image.outputs.image }}
 
     # - name: Deploy to EKS
     #   uses: aws-actions/amazon-eks-deploy@v1
