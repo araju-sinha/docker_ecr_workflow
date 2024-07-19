@@ -33,6 +33,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
       
     - name: Build, tag and push image to ECR
+      id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: docker_nodejs_demo
@@ -40,9 +41,7 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        echo check values
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $IMAGE_OUTPUT
-        echo image to use eks "${{ steps.build-image.outputs.image }}"
 
     # - name: Check values and outputs
     #   run: | 
@@ -50,13 +49,13 @@ jobs:
     #     echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $IMAGE_OUTPUT
     #     echo "image to use eks" ${{ steps.build-image.outputs.image }}
 
-    # - name: Deploy to EKS
-    #   uses: aws-actions/amazon-eks-deploy@v1
-    #   env: 
-    #      EKS_CLUSTER: eks-cluster-01
-    #   with:
-    #     eks-cluster: ${{ env.EKS_CLUSTER }}
-    #     image: ${{ steps.build-image.outputs.image }}
+    - name: Deploy to EKS
+      uses: aws-actions/amazon-eks-deploy@v1
+      env: 
+         EKS_CLUSTER: eks-cluster-01
+      with:
+        eks-cluster: ${{ env.EKS_CLUSTER }}
+        image: ${{ steps.build-image.outputs.image }}
 
 
 
