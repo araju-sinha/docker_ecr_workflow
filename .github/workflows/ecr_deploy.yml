@@ -3,7 +3,7 @@
 name: Deploy to ECR
 
 # workflow execution
- on:
+on:
 #   # Triggers the workflow on push, when any cahnges are done in repo on master branch
 #   push:
 #     branches: [ master ]
@@ -40,6 +40,19 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+    - name: Check values and outputs
+      run: | 
+        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $IMAGE_OUTPUT
+        echo "image to use eks" ${{ steps.build-image.outputs.image }}
+
+    # - name: Deploy to EKS
+    #   uses: aws-actions/amazon-eks-deploy@v1
+    #   env: 
+    #      EKS_CLUSTER: eks-cluster-01
+    #   with:
+    #     eks-cluster: ${{ env.EKS_CLUSTER }}
+    #     image: ${{ steps.build-image.outputs.image }}
 
 
 
